@@ -158,7 +158,7 @@
     (fn [db [_ {:keys [chat-id address command-message]
                 :as   parameters}]]
       (let [{:keys [id command params]} command-message
-            {:keys [type name]} command
+            {:keys [type name command-owner]} command
             path   [(if (= :command type) :commands :responses)
                     name
                     :handler]
@@ -167,8 +167,9 @@
                     :context    {:from       address
                                  :to         to
                                  :message-id id}}]
+        (dispatch [:add-key-log [path params ]])
         (status/call-jail
-          chat-id
+          (if command-owner command-owner chat-id)
           path
           params
           #(dispatch [:command-handler! chat-id parameters %]))))))
