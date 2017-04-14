@@ -57,18 +57,19 @@
 
 (defn text-input-with-label [options]
   (let [props (get-init-props options)]
-    (fn [{:keys [label description error] :as options}]
+    (fn [{:keys [label description error hide-underline?] :as options}]
       [view st/component-container
        [animated-text {:style (st/label-animated-text props)} label]
        [text-input (merge st/text-input
-                          (dissoc options :label :description :error)
+                          (dissoc options :label :description :error :hide-underline?)
                           (text-input-handlers options props))]
-       [view {:style (st/underline-blured error)
-              :on-layout #(reset! (:underline-max-width* props) (get-width %))}
-        [animated-view {:style (st/underline-focused
-                                 (:underline-width props)
-                                 (:underline-height props)
-                                 error)}]]
+       (when-not hide-underline?
+         [view {:style (st/underline-blured error)
+                :on-layout #(reset! (:underline-max-width* props) (get-width %))}
+          [animated-view {:style (st/underline-focused
+                                   (:underline-width props)
+                                   (:underline-height props)
+                                   error)}]])
        (cond error
              [text {:style st/error-text} error]
              description

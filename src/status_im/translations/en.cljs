@@ -260,6 +260,7 @@
    ;accounts
    :recover-access                        "Recover access"
    :add-account                           "Add account"
+   :create-new-account                    "Create new account"
 
    ;wallet-qr-code
    :done                                  "Done"
