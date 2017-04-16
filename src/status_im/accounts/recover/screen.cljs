@@ -21,7 +21,10 @@
   [error [:get-in [:recover :passphrase-error]]]
   [view {:margin-top 10}
    [text-input-with-label {:label             (i18n/label :t/passphrase)
-                           :description       "12 words in correct order"
+                           :description       (i18n/label :t/twelve-words-in-correct-order)
+                           :multiline         true
+                           :auto-expanding    true
+                           :max-height        st/passphrase-input-max-height
                            :default-value     passphrase
                            :auto-capitalize   :none
                            :on-change-text    #(dispatch [:set-in [:recover :passphrase] %])
@@ -45,7 +48,7 @@
     [keyboard-avoiding-view {:style st/screen-container}
      [status-bar {:type :transparent}]
      [toolbar {:actions [{:image :blank}]
-               :title   (i18n/label :t/recover-from-passphrase)}]
+               :title   (i18n/label :t/recover-access)}]
      [passphrase-input (or passphrase "")]
      [password-input (or password "")]
      [view {:flex 1}]

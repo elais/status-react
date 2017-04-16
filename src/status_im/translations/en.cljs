@@ -256,6 +256,7 @@
    :recover                               "Recover"
    :enter-valid-passphrase                "Please enter a passphrase"
    :enter-valid-password                  "Please enter a password"
+   :twelve-words-in-correct-order         "12 words in correct order"
 
    ;accounts
    :recover-access                        "Recover access"
